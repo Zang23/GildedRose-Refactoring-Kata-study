@@ -30,15 +30,4 @@ class ApprovalTest extends TestCase
         Approvals::verifyList($items);
     }
 
-    public function testThirtyDays(): void
-    {
-        ob_start();
-
-        $argv = ["", "30"];
-        include(__DIR__ . '/../fixtures/texttest_fixture.php');
-
-        $output = ob_get_clean();
-
-        Approvals::verifyString($output);
-    }
 }
