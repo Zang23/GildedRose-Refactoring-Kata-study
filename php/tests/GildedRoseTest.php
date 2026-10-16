@@ -97,4 +97,39 @@ class GildedRoseTest extends TestCase
         $this->assertSame(80, $items[0]->quality);
     }
 
+    public function testQualityEnchantedSixDaysBeforeExpired(): void{
+
+        $items = [new Item('Enchanted Ring', 7, 35)];
+        $app = new GildedRose($items);
+        $app->updateQuality();
+
+        $this->assertSame(6, $items[0]->sellIn);
+        $this->assertSame(36, $items[0]->quality);
+        
+    }
+
+    
+    public function testQualityEnchantedFiveDaysBeforeExpired(): void{
+
+        $items = [new Item('Enchanted Ring', 5, 35)];
+        $app = new GildedRose($items);
+        $app->updateQuality();
+
+        $this->assertSame(4, $items[0]->sellIn);
+        $this->assertSame(38, $items[0]->quality);
+        
+    }
+
+    
+    public function testQualityEnchantedAfterExpired(): void{
+
+        $items = [new Item('Enchanted Ring', 0, 35)];
+        $app = new GildedRose($items);
+        $app->updateQuality();
+
+        $this->assertSame(-1, $items[0]->sellIn);
+        $this->assertSame(0, $items[0]->quality);
+        
+    }
+
 }
