@@ -14,63 +14,60 @@ final class GildedRose
     ) {
     }
 
-    public function updateQuality(): void{
-
+    public function updateQuality(): void
+    {
         foreach ($this->items as $item) {
-
             //Qualidade por dia
-            
-            if($item->name == 'Sulfuras, Hand of Ragnaros'){
+
+            if ($item->name === 'Sulfuras, Hand of Ragnaros') {
                 continue;
             }
-            
-            $item->sellIn --;
+
+            $item->sellIn--;
 
             $this->updateItem($item);
 
             $item->quality = min(50, max(0, $item->quality));
-
-              
         }
     }
 
-    private function updateItem(Item $item):void{
-
+    private function updateItem(Item $item): void
+    {
         $increase = 0;
 
-        if($item->name == 'Aged Brie'){
-            if($item->quality < 50){
-                if($item->sellIn < 0){
-                    $item->quality += 2;   
-                }else{
+        if ($item->name === 'Aged Brie') {
+            if ($item->quality < 50) {
+                if ($item->sellIn < 0) {
+                    $item->quality += 2;
+                } else {
                     $item->quality++;
                 }
             }
-            
+
             return;
         }
-        
-        if($item->name == 'Backstage passes to a TAFKAL80ETC concert'){
-            if($item->sellIn < 0){
+
+        if ($item->name === 'Backstage passes to a TAFKAL80ETC concert') {
+            if ($item->sellIn < 0) {
                 $item->quality = 0;
-            }else if($item->quality < 50){
-                if($item->sellIn > 10){
-                $item->quality ++;                    
-                }else if($item->sellIn >= 6 and $item->sellIn <= 10){
+            } elseif ($item->quality < 50) {
+                if ($item->sellIn > 10) {
+                    $item->quality++;
+                } elseif ($item->sellIn >= 6 and $item->sellIn <= 10) {
                     $item->quality += 2;
-                }else if($item->sellIn >=0 and $item->sellIn <= 5 ){
+                } elseif ($item->sellIn >= 0 and $item->sellIn <= 5) {
                     $item->quality += 3;
                 }
             }
-            
+
             return;
         }
-        
-        if($item->name == 'Conjured Mana Cake'){
-            if($item->quality > 0){
-                if($item->sellIn < 0){
+
+        if ($item->name === 'Conjured Mana Cake') {
+            if ($item->quality > 0) {
+                if ($item->sellIn < 0) {
                     $item->quality -= 4;
-                }else{
+                } else {
                     $item->quality -= 2;
                 }
             }
@@ -78,14 +75,14 @@ final class GildedRose
             return;
         }
 
-        if($item->name == 'Enchanted Ring'){
-            if($item->sellIn > 0){
+        if ($item->name === 'Enchanted Ring') {
+            if ($item->sellIn > 0) {
                 $increase = 1;
 
-                if($item->sellIn <= 5){
+                if ($item->sellIn <= 5) {
                     $increase = 3;
                 }
-            }else{
+            } else {
                 $item->quality = 0;
                 return;
             }
@@ -95,16 +92,12 @@ final class GildedRose
             return;
         }
 
-        if($item->quality > 0){
-            if($item->sellIn < 0){
-                $item->quality -=2;
-            }else{
-                $item->quality --;
+        if ($item->quality > 0) {
+            if ($item->sellIn < 0) {
+                $item->quality -= 2;
+            } else {
+                $item->quality--;
             }
-
         }
-
     }
-
-
 }
